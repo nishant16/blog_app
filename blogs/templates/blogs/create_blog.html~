@@ -1,0 +1,18 @@
+<form action= "/create/" method='post'>
+{% csrf_token %}
+<fieldset>
+  Title:<br>
+  <input type="text" name="title" value=""><br>
+  Content:<br>
+  <input type="text" name="Content" value=""><br>
+  category:<br>
+  <input type="text" name="category" value=""><br>
+
+  <input type="submit" value="Submit">
+</fieldset>
+{{ q }}
+{{ qt }}
+{{ msg }}
+
+</form>
+

@@ -1,0 +1,16 @@
+<form action='/edit/{{blog.id}}/' method='post'>
+{% csrf_token %}
+<fieldset>
+<h3>update your content for the given blog</h3> 
+Title:<br>
+  <input type="text" name="title" value="{{ blog.title }}"><br>
+  Content:<br>
+  <input type="text" name="Content" value="{{ blog.Content }}"><br>
+  category:<br>
+  <input type="text" name="category" value="{{ blog.category }}"><br>
+
+  <input type="submit" value="Submit">
+</fieldset>
+</form>
+
+
