@@ -10,5 +10,9 @@ urlpatterns=[
     url(r'^create/', views.create, name='n3'),
     url(r'^edit/$', views.edit, name='n4'),
     url(r'^edit/(?P<id>\d*)/', views.edit_blog_category, name='n5'),
+    url(r'^blogform/$',views.create_form,name='n6'),
+    url(r'^modelform/$',views.create_model_form,name='n7'),
+    url(r'^login/',views.login, name ='n8'),
+
     ]
 

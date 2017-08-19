@@ -1,7 +1,8 @@
 from django.shortcuts import render, get_object_or_404
-
 from .models import Category, Blog
 from django.core.exceptions import ObjectDoesNotExist
+from django.http import HttpResponseRedirect
+from .forms import BlogForm,CreateForm,LoginForm
 import datetime
 
 
@@ -19,8 +20,9 @@ def view_post(request, id):
 
 def view_category(request, id):
     category = get_object_or_404(Category, pk= id)
-    return render(request,'blogs/view_category.html',{'category':category,'posts':Blog.objects.filter(category=category)})
-    
+    posts = Blog.objects.filter(category= category)
+    return render(request,'blogs/view_category.html',{'category':category,'posts':posts})
+
 
 def create(request):
     
@@ -67,6 +69,42 @@ def edit_blog_category(request, id):
         return render(request,'blogs/edit_blog_category.html',{'blog':blog})
 
 
+def create_form(request):
+    if request.method == 'POST':
+	form = BlogForm(request.POST)
+	if form.is_valid():
+	    cat =Category.objects.get(title =form.cleaned_data['category'])
+            blog = Blog.objects.create(title=form.cleaned_data['title'],Content= form.cleaned_data['content'],category= cat)
+            return HttpResponseRedirect('/')
+    else:
+	form =BlogForm()
+    return render(request,'blogs/new_form.html',{'form':form})
+
+def create_model_form(request):
+    if request.method == "POST":
+	form = CreateForm(request.POST)
+	if form.is_valid():
+	    #import pdb; pdb.set_trace()
+
+	    title_name=form.cleaned_data['title']
+	    content = form.cleaned_data['Content']
+	    category = Category.objects.get(title = form.cleaned_data['category'])
+	    blog = Blog.objects.create(title=title_name,Content=content,category=category)
+	    return HttpResponseRedirect('/')
+    else:
+	form = CreateForm()
+    return render(request,'blogs/modelform.html',{'form':form})
+
+def login(request):
+    if request.method == "POST":
+	form = LoginForm(request.POST)
+        if form.is_valid():
+	    return HttpResponseRedirect('/')
+    else:
+	form = LoginForm()
+    return render(request,'loginform.html')
+    
+ 
 
 
 
