@@ -4,9 +4,8 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponseRedirect
 from .forms import BlogForm,CreateForm,LoginForm
 import datetime
-
-
-
+import json
+from django.http import HttpResponse
 
 def index(request):
     context = {'categories':Category.objects.all(),'posts':Blog.objects.all()} 
@@ -16,6 +15,18 @@ def index(request):
 def view_post(request, id):
     post = get_object_or_404(Blog , pk= id)
     return render(request,'blogs/view_post.html',{'posts': post})
+
+
+def data_list(request):
+    if request.method=="GET":
+	data= {
+        'name': 'nishant',
+        'location': 'agarwal',
+        }
+        dump = json.dumps(data)
+        return HttpResponse(dump, content_type='application/json')
+    return (render,'blog/data_view.html',{'data':data})
+
 
 
 def view_category(request, id):

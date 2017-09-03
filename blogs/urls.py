@@ -13,6 +13,7 @@ urlpatterns=[
     url(r'^blogform/$',views.create_form,name='n6'),
     url(r'^modelform/$',views.create_model_form,name='n7'),
     url(r'^login/',views.login, name ='n8'),
+    url(r'^data/',views.data_list,name='n9'),
 
     ]
 
